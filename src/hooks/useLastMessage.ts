@@ -20,36 +20,35 @@ export const useLastMessage = (conversationId: string) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const unsubcribe = onSnapshot(
+    const unsubscribe = onSnapshot(
       query(
-        collection(db, 'conversations', conversationId, 'messages'),
-        orderBy('createdAt'),
+        collection(db, "conversations", conversationId, "messages"),
+        orderBy("createdAt"),
         limitToLast(1)
       ),
       (snapshot) => {
         if (snapshot.empty) {
           setData({
             lastMessageId: null,
-            message: 'No Messages Recently',
+            message: "No message recently",
           });
-          setError(false);
           setLoading(false);
+          setError(false);
           return;
         }
-        const type = snapshot.docs?.[0].data()?.type;
-
+        const type = snapshot.docs?.[0]?.data()?.type;
         let response =
-          type === 'image'
-            ? 'An image'
-            : type === 'file'
-            ? `File:${
-                snapshot.docs[0]?.data()?.file?.name.split('.').slice(-1)[0]
+          type === "image"
+            ? "An image"
+            : type === "file"
+            ? `File: ${
+                snapshot.docs[0]?.data()?.file?.name.split(".").slice(-1)[0]
               }`
-            : type === 'sticker'
-            ? 'A Scicker'
-            : type === 'removed'
-            ? 'Message Removed'
-            : (snapshot.docs[0].data().concat as string);
+            : type === "sticker"
+            ? "A sticker"
+            : type === "removed"
+            ? "Message removed"
+            : (snapshot.docs[0].data().content as string);
 
         const seconds = snapshot.docs[0]?.data()?.createdAt?.seconds;
         const formattedDate = formatDate(seconds ? seconds * 1000 : Date.now());
@@ -60,7 +59,6 @@ export const useLastMessage = (conversationId: string) => {
             : response;
 
         const result = `${response} • ${formattedDate}`;
-
         setData({
           lastMessageId: snapshot.docs?.[0]?.id,
           message: result,
@@ -69,7 +67,6 @@ export const useLastMessage = (conversationId: string) => {
           lastMessageId: snapshot.docs?.[0]?.id,
           message: result,
         };
-
         setLoading(false);
         setError(false);
       },
@@ -82,7 +79,7 @@ export const useLastMessage = (conversationId: string) => {
     );
 
     return () => {
-      unsubcribe();
+      unsubscribe();
     };
   }, [conversationId]);
 

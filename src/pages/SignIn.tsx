@@ -2,6 +2,7 @@ import {
   AuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -48,7 +49,7 @@ const SignIn = () => {
               <span className='text-2xl'>Fire Chat</span>
             </div>
             <a
-              href='!'
+              href='https://github.com/jason5701/chat.git'
               target='_blank'
               rel='noopener noreferrer'
               className='flex items-center gap-1 text-xl'
@@ -81,7 +82,7 @@ const SignIn = () => {
                 <span>Sign In With Google</span>
               </button>
 
-              {/* <button
+              <button
                 disabled={loading}
                 onClick={() => signInHandler(new FacebookAuthProvider())}
                 className='bg-primary flex min-w-[250px] cursor-pointer items-center gap-3 rounded-md p-3 text-white transition duration-300 hover:brightness-90 disabled:!cursor-default disabled:!brightness-75'
@@ -89,7 +90,7 @@ const SignIn = () => {
                 <img className='h-6 w-6' src='/facebook.svg' alt='' />
 
                 <span>Sign In With Facebook</span>
-              </button> */}
+              </button>
             </div>
           </div>
         </div>

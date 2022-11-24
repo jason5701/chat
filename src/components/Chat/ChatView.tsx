@@ -80,7 +80,7 @@ const ChatView = ({
 
     if (!lastDoc) return;
 
-    updateDoc(doc(db, 'conversations', conversationId as string), {
+    updateDoc(doc(db, 'conversations', conversationIdRef.current as string), {
       [`seen.${currentUser?.uid}`]: lastDoc.id,
     });
   };

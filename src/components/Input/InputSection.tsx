@@ -228,7 +228,7 @@ const InputSection = ({
 
   const sendGif = (url: string) => {
     addDoc(
-      collection(db, 'conversation', conversationId as string, 'messages'),
+      collection(db, 'conversations', conversationId as string, 'messages'),
       {
         sender: currentUser?.uid,
         content: url,

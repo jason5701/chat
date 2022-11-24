@@ -7,18 +7,18 @@ import {
   where,
 } from 'firebase/firestore';
 import { IMAGE_PROXY, THEMES } from '../../constants';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { db } from '../../Firebase';
 import { useCollectionQuery } from '../../hooks/useCollectionQuery';
 import { useStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
-import {Spin} from 'react-cssfx-loading';
+import { Spin } from 'react-cssfx-loading';
 
 type CreateConversationProps = {
   setIsOpened: (value: boolean) => void;
 };
 
-const CreateConversation: FC<CreateConversationProps> = ({ setIsOpened }) => {
+const CreateConversation = ({ setIsOpened }: CreateConversationProps) => {
   const { data, error, loading } = useCollectionQuery(
     'all-users',
     collection(db, 'users')
@@ -50,7 +50,7 @@ const CreateConversation: FC<CreateConversationProps> = ({ setIsOpened }) => {
 
     if (querySnapshot.empty) {
       const created = await addDoc(collection(db, 'conversations'), {
-        user: sorted,
+        users: sorted,
         group:
           sorted.length > 2
             ? {

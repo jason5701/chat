@@ -2,7 +2,7 @@ import { DEFAULT_AVATAR, IMAGE_PROXY } from '../../constants';
 
 import { Link, useLocation } from 'react-router-dom';
 import { collection, orderBy, query, where } from 'firebase/firestore';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { db, auth } from '../../Firebase';
 import { useCollectionQuery } from '../../hooks/useCollectionQuery';
 import { useStore } from '../../store';
@@ -15,7 +15,7 @@ import { Spin } from 'react-cssfx-loading';
 import CreateConversation from './CreateConversation';
 import SelectConversation from './SelectConversation';
 
-const Sidebar: FC = () => {
+const Sidebar = () => {
   const currentUser = useStore((state) => state.currentUser);
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -39,38 +39,36 @@ const Sidebar: FC = () => {
         className={`border-dark-lighten h-screen flex-shrink-0 overflow-y-auto overflow-x-hidden border-r ${
           location.pathname !== '/'
             ? 'hidden w-[350px] md:!block'
-            : 'w-full md:!w-[350px'
+            : 'w-full md:!w-[350px]'
         }`}
       >
         <div className='border-dark-lighten flex h-20 items-center justify-between border-b px-6'>
           <Link to='/' className='flex items-center gap-1'>
             <img className='h-8 w-8' src='/icon.svg' alt='' />
-            <h1 className='text-x1'>Fire Chat</h1>
+            <h1 className='text-xl'>Fire Chat</h1>
           </Link>
 
           <div className='flex items-center gap-1'>
             <button
               onClick={() => setCreateConversationOpened(true)}
-              className='bg-dark-lighted h-8 w-8 rounded-full'
+              className='bg-dark-lighten h-8 w-8 rounded-full'
             >
               <i className='bx bxs-edit text-xl'></i>
             </button>
 
             <ClickAwayListener onClickAway={() => setIsDropdownOpened(false)}>
               {(ref) => (
-                <>
-                  <div ref={ref} className='relative z-10'>
-                    <img
-                      onClick={() => setIsDropdownOpened((prev) => !prev)}
-                      className='h-8 w-8 cursor-pointer rounded-full object-cover'
-                      src={
-                        currentUser?.photoURL
-                          ? IMAGE_PROXY(currentUser.photoURL)
-                          : DEFAULT_AVATAR
-                      }
-                      alt=''
-                    />
-                  </div>
+                <div ref={ref} className='relative z-10'>
+                  <img
+                    onClick={() => setIsDropdownOpened((prev) => !prev)}
+                    className='h-8 w-8 cursor-pointer rounded-full object-cover'
+                    src={
+                      currentUser?.photoURL
+                        ? IMAGE_PROXY(currentUser.photoURL)
+                        : DEFAULT_AVATAR
+                    }
+                    alt=''
+                  />
 
                   <div
                     className={`border-dark-lighten bg-dark absolute top-full right-0 flex w-max origin-top-right flex-col items-stretch overflow-hidden rounded-md border py-1 shadow-lg transition-all duration-200 ${
@@ -97,7 +95,7 @@ const Sidebar: FC = () => {
                       <span className='whitespace-nowrap'>Sign Out</span>
                     </button>
                   </div>
-                </>
+                </div>
               )}
             </ClickAwayListener>
           </div>
@@ -109,16 +107,16 @@ const Sidebar: FC = () => {
           </div>
         ) : error ? (
           <div className='my-6 flex justify-center'>
-            <p className='text-center'>Something Went Wrong</p>
+            <p className='text-center'>Something went wrong</p>
           </div>
         ) : data?.empty ? (
           <div className='my-6 flex flex-col items-center justify-center'>
-            <p className='text-center'>No Conversation Found</p>
+            <p className='text-center'>No conversation found</p>
             <button
               onClick={() => setCreateConversationOpened(true)}
               className='text-primary text-center'
             >
-              Create One
+              Create one
             </button>
           </div>
         ) : (

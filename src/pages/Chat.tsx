@@ -1,9 +1,9 @@
 import { doc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import InputSection from "../components/Input/InputSection";
-import ChatHeader from "../components/Chat/ChatHeader";
-import ChatView from "../components/Chat/ChatView";
+import InputSection from '../components/Input/InputSection';
+import ChatHeader from '../components/Chat/ChatHeader';
+import ChatView from '../components/Chat/ChatView';
 import Sidebar from '../components/Home/Sidebar';
 import { db } from '../Firebase';
 import { useDocumentQuery } from '../hooks/useDocumnetQuery';

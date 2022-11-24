@@ -15,12 +15,11 @@ export const useDocumentQuery = (
   const [data, setData] = useState<DocumentSnapshot<DocumentData> | null>(
     cache[key] || null
   );
-
   const [loading, setLoading] = useState(!Boolean(data));
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const unsubcribe = onSnapshot(
+    const unsubscribe = onSnapshot(
       document,
       (snapshot) => {
         setData(snapshot);
@@ -35,9 +34,9 @@ export const useDocumentQuery = (
     );
 
     return () => {
-      unsubcribe();
+      unsubscribe();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [key]);
 
   return { loading, error, data };
